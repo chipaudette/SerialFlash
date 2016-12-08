@@ -158,7 +158,9 @@ void SerialFlashChip::read(uint32_t addr, void *buf, uint32_t len)
 			SPIPORT.transfer16(0x0300 | ((addr >> 16) & 255));
 			SPIPORT.transfer16(addr);
 		}
-		SPIPORT.transfer(p, rdlen);
+		//SPIPORT.transfer(p, rdlen);
+		for(int i=0; i<rdlen; i++){ SPIPORT.transfer(p[i]);}	//(p, rdlen);  Now works for SIMBLEE
+		
 		CSRELEASE();
 		p += rdlen;
 		addr += rdlen;
